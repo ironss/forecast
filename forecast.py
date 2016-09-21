@@ -21,20 +21,16 @@ r = requests.get(url)
 
 forecast = r.json()
 
-output_current  = u'{forecast[time]} {forecast[temperature]: 5.1f} °C {forecast[summary]}'
-output_today    = u'Today               {forecast[summary]}'
-output_thisweek = u'This week           {forecast[summary]}'
-
 print('{name} ({lat}, {lon})'.format(name=location_name, lat=location_lat, lon=location_lon))
 
-output = output_current.format(forecast=forecast['currently'])
-print(output)
+output_current_fmt  = u'{forecast[time]} {forecast[temperature]: 5.1f} °C {forecast[summary]}'
+print(output_current_fmt.format(forecast=forecast['currently']))
 
-output = output_today.format(forecast=forecast['hourly'])
-print(output)
+output_today_fmt    = u'Today               {forecast[summary]}'
+print(output_today_fmt.format(forecast=forecast['hourly']))
 
-output = output_thisweek.format(forecast=forecast['daily'])
-print(output)
+output_thisweek_fmt = u'This week           {forecast[summary]}'
+print(output_thisweek_fmt.format(forecast=forecast['daily']))
 
 #for f in daily['data']:
 #   print(f)
