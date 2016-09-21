@@ -15,24 +15,31 @@ url_fmt = 'https://api.darksky.net/forecast/{apikey}/{lat},{lon}?{params}'
 url = url_fmt.format(apikey=apikey, lat=location_lat, lon=location_lon, params=params)
 r = requests.get(url)
 
-#print(r)
-#print(r.headers)
-#print(r.text)
-
+# Convert the forecast data from JSON to Python
 forecast = r.json()
 
+# Generate the report
 print('{name} ({lat}, {lon})'.format(name=location_name, lat=location_lat, lon=location_lon))
 
-output_current_fmt  = u'{forecast[time]} {forecast[temperature]: 5.1f} °C {forecast[summary]}'
-print(output_current_fmt.format(forecast=forecast['currently']))
+currently_fmt  = u'{forecast[time]} {forecast[temperature]: 5.1f} °C {forecast[summary]}'
+f = forecast['currently']
+print(currently_fmt.format(forecast=f))
 
-output_today_fmt    = u'Today               {forecast[summary]}'
-print(output_today_fmt.format(forecast=forecast['hourly']))
+today_fmt    = u'Today               {forecast[summary]}'
+f = forecast['hourly']
+print(today_fmt.format(forecast=f))
 
-output_thisweek_fmt = u'This week           {forecast[summary]}'
-print(output_thisweek_fmt.format(forecast=forecast['daily']))
+hourly_fmt   = u'                    {forecast[summary]}'
+for i in range(6):
+    f = forecast['hourly']['data'][i]
+    print(hourly_fmt.format(forecast=f))
 
-#for f in daily['data']:
-#   print(f)
-#   print(output_fmt.format(forecast=f))
+thisweek_fmt = u'This week           {forecast[summary]}'
+f = forecast['daily']
+print(thisweek_fmt.format(forecast=f))
+
+daily_fmt   = u'                    {forecast[summary]}'
+for i in range(6):
+    f = forecast['daily']['data'][i]
+    print(daily_fmt.format(forecast=f))
 
