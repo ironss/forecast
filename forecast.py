@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import requests
+import datetime as dt
 
 apikey = 'c795da7ea1fadbf5dccbf95d39ce7baa'
 location_name = 'Christchurch'
@@ -21,24 +22,25 @@ forecast = r.json()
 # Generate the report
 print('{name} ({lat}, {lon})'.format(name=location_name, lat=location_lat, lon=location_lon))
 
-currently_fmt  = u'{forecast[time]} {forecast[temperature]: 5.1f} °C {forecast[summary]}'
+currently_fmt  = u'{forecast[datetime]:%Y-%m-%d %H:%M} {forecast[temperature]: 5.1f} °C {forecast[summary]}'
 f = forecast['currently']
+f['datetime'] = dt.datetime.fromtimestamp(f['time'])
 print(currently_fmt.format(forecast=f))
 
-today_fmt    = u'Today               {forecast[summary]}'
+today_fmt    = u'Today                     {forecast[summary]}'
 f = forecast['hourly']
 print(today_fmt.format(forecast=f))
 
-hourly_fmt   = u'                    {forecast[summary]}'
+hourly_fmt   = u'                          {forecast[summary]}'
 for i in range(6):
     f = forecast['hourly']['data'][i]
     print(hourly_fmt.format(forecast=f))
 
-thisweek_fmt = u'This week           {forecast[summary]}'
+thisweek_fmt = u'This week                 {forecast[summary]}'
 f = forecast['daily']
 print(thisweek_fmt.format(forecast=f))
 
-daily_fmt   = u'                    {forecast[summary]}'
+daily_fmt   = u'                          {forecast[summary]}'
 for i in range(6):
     f = forecast['daily']['data'][i]
     print(daily_fmt.format(forecast=f))
