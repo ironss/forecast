@@ -5,9 +5,14 @@ import requests
 import datetime as dt
 
 apikey = 'c795da7ea1fadbf5dccbf95d39ce7baa'
-location_name = 'Christchurch'
-location_lat = '-43.49391'
-location_lon = '172.57900'
+
+#location_name = 'Christchurch'
+#location_lat = '-43.49391'
+#location_lon = '172.57900'
+
+location_name = 'Oneroa'
+location_lat = '-36.7819421'
+location_lon = '175.0082993'
 
 params = ''
 params += 'units=si'
