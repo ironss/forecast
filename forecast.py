@@ -6,13 +6,16 @@ import datetime as dt
 
 apikey = 'c795da7ea1fadbf5dccbf95d39ce7baa'
 
-#location_name = 'Christchurch'
-#location_lat = '-43.49391'
-#location_lon = '172.57900'
+location_name = 'Oneroa, Waiheke Island'
 
-location_name = 'Oneroa'
-location_lat = '-36.7819421'
-location_lon = '175.0082993'
+
+loc_url_fmt = 'http://maps.googleapis.com/maps/api/geocode/json?address={addr}'
+url = loc_url_fmt.format(addr=location_name)
+r = requests.get(url)
+location = r.json()
+location_lat = location['results'][0]['geometry']['location']['lat']
+location_lon = location['results'][0]['geometry']['location']['lng']
+
 
 params = ''
 params += 'units=si'
