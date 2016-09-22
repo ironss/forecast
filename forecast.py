@@ -59,3 +59,7 @@ for i in range(6):
     f['datetime'] = dt.datetime.fromtimestamp(f['time'])
     print(daily_fmt.format(forecast=f))
 
+# Attribution required by license
+print()
+print('[Powered by Dark Sky|https://darksky.net/poweredby/]')
+
