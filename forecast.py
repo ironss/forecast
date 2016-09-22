@@ -23,7 +23,7 @@ forecast = r.json()
 print('{name} ({lat}, {lon})'.format(name=location_name, lat=location_lat, lon=location_lon))
 
 # Current situation
-currently_fmt  = u'{forecast[datetime]:%Y-%m-%d %H:%M} {forecast[temperature]: 5.1f} °C {forecast[summary]}'
+currently_fmt  = u'{forecast[datetime]:%Y-%m-%d %H:%M}  {forecast[temperature]: 3.0f} °C  {forecast[summary]}'
 f = forecast['currently']
 f['datetime'] = dt.datetime.fromtimestamp(f['time'])
 print(currently_fmt.format(forecast=f))
@@ -39,15 +39,15 @@ f = forecast['daily']
 print(thisweek_fmt.format(forecast=f))
 
 # Forecast for the next few hours
-hourly_fmt   = u'{forecast[datetime]:%H:%M}                     {forecast[summary]}'
+hourly_fmt   = u'{forecast[datetime]:%H:%M}             {forecast[temperature]: 3.0f} °C  {forecast[summary]}'
 print()
-for i in range(6):
+for i in range(8):
     f = forecast['hourly']['data'][i]
     f['datetime'] = dt.datetime.fromtimestamp(f['time'])
     print(hourly_fmt.format(forecast=f))
 
 # Forecast for the next few days
-daily_fmt   = u'{forecast[datetime]:%a}                       {forecast[summary]}'
+daily_fmt   = u'{forecast[datetime]:%a}        {forecast[temperatureMin]: 3.0f} °C {forecast[temperatureMax]: 3.0f} °C  {forecast[summary]}'
 print()
 for i in range(6):
     f = forecast['daily']['data'][i]
