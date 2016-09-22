@@ -6,8 +6,13 @@ import datetime as dt
 
 apikey = 'c795da7ea1fadbf5dccbf95d39ce7baa'
 
-location_name = 'Oneroa, Waiheke Island'
-
+location_name = 'Christchurch, NZ'
+#location_name = 'Christchurch, UK'
+#location_name = 'Brisbane, Australia'
+#location_name = 'Kaiteriteri, NZ'
+#location_name = 'Adele Island, NZ'
+#location_name = 'Frenchman Bay, NZ'
+#location_name = 'Oneroa, Waiheke Island'
 
 loc_url_fmt = 'http://maps.googleapis.com/maps/api/geocode/json?address={addr}'
 url = loc_url_fmt.format(addr=location_name)
@@ -49,6 +54,7 @@ print(thisweek_fmt.format(forecast=f))
 # Forecast for the next few hours
 hourly_fmt   = u'{forecast[datetime]:%H:%M}             {forecast[temperature]: 3.0f} °C  {forecast[summary]}'
 print()
+print('Next few hours')
 for i in range(8):
     f = forecast['hourly']['data'][i]
     f['datetime'] = dt.datetime.fromtimestamp(f['time'])
@@ -57,6 +63,7 @@ for i in range(8):
 # Forecast for the next few days
 daily_fmt   = u'{forecast[datetime]:%a}        {forecast[temperatureMin]: 3.0f} °C {forecast[temperatureMax]: 3.0f} °C  {forecast[summary]}'
 print()
+print('Next few days')
 for i in range(6):
     f = forecast['daily']['data'][i]
     f['datetime'] = dt.datetime.fromtimestamp(f['time'])
