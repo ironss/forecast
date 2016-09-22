@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/python3
 # -*- coding: UTF-8 -*-
 
 import requests
@@ -19,29 +19,38 @@ r = requests.get(url)
 # Convert the forecast data from JSON to Python
 forecast = r.json()
 
-# Generate the report
+# Location
 print('{name} ({lat}, {lon})'.format(name=location_name, lat=location_lat, lon=location_lon))
 
+# Current situation
 currently_fmt  = u'{forecast[datetime]:%Y-%m-%d %H:%M} {forecast[temperature]: 5.1f} °C {forecast[summary]}'
 f = forecast['currently']
 f['datetime'] = dt.datetime.fromtimestamp(f['time'])
 print(currently_fmt.format(forecast=f))
 
+# Forecast summary for the rest of today
 today_fmt    = u'Today                     {forecast[summary]}'
 f = forecast['hourly']
 print(today_fmt.format(forecast=f))
 
-hourly_fmt   = u'                          {forecast[summary]}'
-for i in range(6):
-    f = forecast['hourly']['data'][i]
-    print(hourly_fmt.format(forecast=f))
-
+# Forecast summary for the rest of the week
 thisweek_fmt = u'This week                 {forecast[summary]}'
 f = forecast['daily']
 print(thisweek_fmt.format(forecast=f))
 
-daily_fmt   = u'                          {forecast[summary]}'
+# Forecast for the next few hours
+hourly_fmt   = u'{forecast[datetime]:%H:%M}                     {forecast[summary]}'
+print()
+for i in range(6):
+    f = forecast['hourly']['data'][i]
+    f['datetime'] = dt.datetime.fromtimestamp(f['time'])
+    print(hourly_fmt.format(forecast=f))
+
+# Forecast for the next few days
+daily_fmt   = u'{forecast[datetime]:%a}                       {forecast[summary]}'
+print()
 for i in range(6):
     f = forecast['daily']['data'][i]
+    f['datetime'] = dt.datetime.fromtimestamp(f['time'])
     print(daily_fmt.format(forecast=f))
 
