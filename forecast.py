@@ -76,7 +76,13 @@ def get_forecast(location_name):
 
 
 if __name__ == '__main__':
-   locations = [
+   import argparse
+
+   parser = argparse.ArgumentParser(description='Weather forecasts for the next little while.')
+   parser.add_argument('locations', metavar='location', nargs='*')
+   args = parser.parse_args()
+
+   locations = args.locations if len(args.locations) > 0 else [
       'Christchurch, NZ',
       #'Christchurch, UK',
       #'Brisbane, Australia',
@@ -85,6 +91,8 @@ if __name__ == '__main__':
       #'Frenchman Bay, NZ',
       'Oneroa, Waiheke Island',
    ]
+
+   print(locations)
 
    for location_name in locations:
       get_forecast(location_name)
