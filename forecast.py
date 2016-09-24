@@ -20,6 +20,11 @@ def get_forecast(location_name):
    url = loc_url_fmt.format(addr=location_name)
    r = requests.get(url)
    location = r.json()
+
+   if len(location) == 0:
+      print('{location} not found'.format(location=location_name))
+      return
+
    location_lat = location[0]['lat']
    location_lon = location[0]['lon']
 
@@ -74,6 +79,8 @@ def get_forecast(location_name):
    print()
    print('[Powered by Dark Sky|https://darksky.net/poweredby/]')
 
+   print()
+
 
 if __name__ == '__main__':
    import argparse
@@ -91,8 +98,6 @@ if __name__ == '__main__':
       #'Frenchman Bay, NZ',
       'Oneroa, Waiheke Island',
    ]
-
-   print(locations)
 
    for location_name in locations:
       get_forecast(location_name)
