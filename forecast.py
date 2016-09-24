@@ -6,14 +6,6 @@ import datetime as dt
 
 apikey = 'c795da7ea1fadbf5dccbf95d39ce7baa'
 
-#location_name = 'Christchurch, NZ'
-#location_name = 'Christchurch, UK'
-#location_name = 'Brisbane, Australia'
-#location_name = 'Kaiteriteri, NZ'
-#location_name = 'Adele Island, NZ'
-#location_name = 'Frenchman Bay, NZ'
-location_name = 'Oneroa, Waiheke Island'
-
 def get_forecast(location_name):
    # Geolocation using Google Maps API
    #loc_url_fmt = 'http://maps.googleapis.com/maps/api/geocode/json?address={addr}'
@@ -84,5 +76,16 @@ def get_forecast(location_name):
 
 
 if __name__ == '__main__':
-   get_forecast(location_name)
+   locations = [
+      'Christchurch, NZ',
+      #'Christchurch, UK',
+      #'Brisbane, Australia',
+      #'Kaiteriteri, NZ',
+      #'Adele Island, NZ',
+      #'Frenchman Bay, NZ',
+      'Oneroa, Waiheke Island',
+   ]
+
+   for location_name in locations:
+      get_forecast(location_name)
 
