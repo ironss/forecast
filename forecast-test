@@ -4,6 +4,6 @@ APIKEY=c795da7ea1fadbf5dccbf95d39ce7baa
 LOC_LAT=-43.49391
 LOC_LON=172.57900
 
-curl -s https://api.darksky.net/forecast/$APIKEY/$LOC_LAT,$LOC_LON?units=si |
+curl -H 'Accept-Encoding: gzip' https://api.darksky.net/forecast/$APIKEY/$LOC_LAT,$LOC_LON?units=si | gunzip |
 python -mjson.tool
 

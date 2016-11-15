@@ -33,7 +33,8 @@ def get_forecast(location_name):
 
    url_fmt = 'https://api.darksky.net/forecast/{apikey}/{lat},{lon}?{params}'
    url = url_fmt.format(apikey=apikey, lat=location_lat, lon=location_lon, params=params)
-   r = requests.get(url)
+   headers = {'Accept-Encoding': 'gzip'}
+   r = requests.get(url, headers=headers)
 
    # Convert the forecast data from JSON to Python
    forecast = r.json()
@@ -96,7 +97,7 @@ if __name__ == '__main__':
       #'Kaiteriteri, NZ',
       #'Adele Island, NZ',
       #'Frenchman Bay, NZ',
-      'Oneroa, Waiheke Island',
+      #'Oneroa, Waiheke Island',
    ]
 
    for location_name in locations:
